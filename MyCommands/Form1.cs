@@ -215,7 +215,7 @@ namespace MyCommands
 
             base.WndProc(ref m);
         }
-
+        //move this to a different class
         private void generateTFSComment()
         {
             string taskName = Clipboard.GetText();
