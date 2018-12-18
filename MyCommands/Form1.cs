@@ -97,6 +97,7 @@ namespace MyCommands
 
         private void btnLauchSolutions_Click(object sender, EventArgs e)
         {
+            //added comment
             var versionNumber = cbVersion.SelectedItem.ToString().ToLower();
 
             if (versionNumber == "tip")
