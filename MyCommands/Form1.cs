@@ -48,6 +48,7 @@ namespace MyCommands
             int cHotKey = (int)Keys.C;
             int bHotKey = (int)Keys.B;
             int gHotKey = (int)Keys.G;
+            int aHotKey = (int)Keys.A;
             #endregion
             #region registering_shortcuts
             Boolean success = Form1.RegisterHotKey(this.Handle, this.GetType().GetHashCode(), 0x0001, zHotKey);//Set hotkey as 'Alt + z'
@@ -61,6 +62,7 @@ namespace MyCommands
             Boolean clearLog = Form1.RegisterHotKey(this.Handle, this.GetType().GetHashCode(), 0x0001, cHotKey);//Set hotkey as 'Alt + c'
             Boolean launchBJE = Form1.RegisterHotKey(this.Handle, this.GetType().GetHashCode(), 0x0001, bHotKey);//Set hotkey as 'Alt + b'
             Boolean generateComment = Form1.RegisterHotKey(this.Handle, this.GetType().GetHashCode(), 0x0001, gHotKey);//Set hotkey as 'Alt + g'
+            Boolean executeMyCommand = Form1.RegisterHotKey(this.Handle, this.GetType().GetHashCode(), 0x0001, aHotKey);//Set hotkey as 'Alt + a'
             #endregion
         }
         [DllImport("user32.dll")]
@@ -208,6 +210,10 @@ namespace MyCommands
                 if (id == 4653057) {
                     generateTFSComment();
                 }
+                //Alt + A
+                if (id == 4259841) {
+                    executeCommandPrompt();
+                }
                 Console.WriteLine(id);
 
             }
@@ -260,6 +266,18 @@ namespace MyCommands
                     Clipboard.SetText(result);
                 }
 
+            }
+        }
+        /// <summary>
+        /// Executes commands that you type
+        /// </summary>
+        private void executeCommandPrompt() {
+            string promptValue = Prompt.ShowDialog("Type the command to execute", "");
+
+            if (!string.IsNullOrEmpty(promptValue)) {
+                string commandToExecute = $@"c:\windows\system32\{promptValue}";
+
+                Process.Start(@"cmd", @"/c " + commandToExecute);
             }
         }
 
