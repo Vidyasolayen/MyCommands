@@ -510,14 +510,14 @@ pause
         {
             var prs = Process.GetProcesses();
             string versionPath = mcd.getVersionPath(cbVersion.Text);
-            var mainProcessPath = $@"{versionPath}\Main.sln";
-            var dsvcProcessPath = $@"{versionPath}\DataSvc.sln";
+            var mainProcessPath = $@"{versionPath}\Main";
+            var dsvcProcessPath = $@"{versionPath}\DataSvc";
 
             foreach (Process pr in prs)
             {
                 if (pr.ProcessName.ToString().ToLower().Contains("devenv"))
                 {
-                    if (pr.MainWindowTitle.ToLower().Contains(mainProcessPath) || pr.MainWindowTitle.ToLower().Contains(dsvcProcessPath))
+                    if (pr.MainWindowTitle.ToLower().Contains(mainProcessPath.ToLower()) || pr.MainWindowTitle.ToLower().Contains(dsvcProcessPath.ToLower()))
                     {
                         pr.Kill();
                     }
@@ -532,8 +532,8 @@ pause
             bool isSelectedVersionMainOpen = false;
             bool isSelectedVersionDsvcOpen = false;
 
-            var mainProcessPath = $@"{versionPath}\Main.sln";
-            var dsvcProcessPath = $@"{versionPath}\DataSvc.sln";
+            var mainProcessPath = $@"{versionPath}\Main";
+            var dsvcProcessPath = $@"{versionPath}\DataSvc";
 
             var prs = Process.GetProcesses();
 
@@ -541,11 +541,11 @@ pause
             {
                 if (pr.ProcessName.ToString().ToLower().Contains("devenv"))
                 {
-                    if (pr.MainWindowTitle.ToLower().Contains(mainProcessPath))
+                    if (pr.MainWindowTitle.ToLower().Contains(mainProcessPath.ToLower()))
                     {
                         isSelectedVersionMainOpen = true;
                     }
-                    if (pr.MainWindowTitle.ToLower().Contains(dsvcProcessPath))
+                    if (pr.MainWindowTitle.ToLower().Contains(dsvcProcessPath.ToLower()))
                     {
                         isSelectedVersionDsvcOpen = true;
                     }
@@ -566,11 +566,6 @@ pause
                 procDSvc.EnableRaisingEvents = false;
                 procDSvc.StartInfo.FileName = $@"{versionPath}\DataSvc.sln";
                 procDSvc.Start();
-                //Thread.Sleep(3000);
-
-                //processesOpen.Add(cbVersion.Text+"_main", procMain);
-                //processesOpen.Add(cbVersion.Text +"_dsvc", procDSvc);
-                //alreadyOpenedVersions.Add(cbVersion.Text);
             }
         }
 
@@ -584,6 +579,11 @@ pause
         private void btnScreenshot_Click(object sender, EventArgs e)
         {
             sendEmail();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
