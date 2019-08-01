@@ -92,7 +92,6 @@
             this.btnLauchSolutions.TabIndex = 0;
             this.btnLauchSolutions.Text = "Launch Solutions - Sharptop";
             this.btnLauchSolutions.UseVisualStyleBackColor = false;
-            this.btnLauchSolutions.Click += new System.EventHandler(this.btnLauchSolutions_Click);
             // 
             // btnLaunch853
             // 
@@ -108,7 +107,6 @@
             this.btnLaunch853.TabIndex = 1;
             this.btnLaunch853.Text = "Launch Solutions - 853";
             this.btnLaunch853.UseVisualStyleBackColor = false;
-            this.btnLaunch853.Click += new System.EventHandler(this.btnLaunch853_Click);
             // 
             // btnIISSharptop
             // 
@@ -123,7 +121,6 @@
             this.btnIISSharptop.TabIndex = 2;
             this.btnIISSharptop.Text = "IIS Sharptop";
             this.btnIISSharptop.UseVisualStyleBackColor = false;
-            this.btnIISSharptop.Click += new System.EventHandler(this.btnIISSharptop_Click);
             // 
             // btnIIS853
             // 
@@ -138,7 +135,6 @@
             this.btnIIS853.TabIndex = 3;
             this.btnIIS853.Text = "IIS 853";
             this.btnIIS853.UseVisualStyleBackColor = false;
-            this.btnIIS853.Click += new System.EventHandler(this.btnIIS853_Click);
             // 
             // btnClearLog
             // 
@@ -168,7 +164,6 @@
             this.btnUpgradeSharptop.TabIndex = 5;
             this.btnUpgradeSharptop.Text = "Upgrade Sharptop";
             this.btnUpgradeSharptop.UseVisualStyleBackColor = false;
-            this.btnUpgradeSharptop.Click += new System.EventHandler(this.btnUpgradeSharptop_Click);
             // 
             // btnUpgrade853
             // 
@@ -183,7 +178,6 @@
             this.btnUpgrade853.TabIndex = 6;
             this.btnUpgrade853.Text = "Upgrade 853";
             this.btnUpgrade853.UseVisualStyleBackColor = false;
-            this.btnUpgrade853.Click += new System.EventHandler(this.btnUpgrade853_Click);
             // 
             // btnMoveDLLSharptop
             // 
@@ -198,7 +192,6 @@
             this.btnMoveDLLSharptop.TabIndex = 7;
             this.btnMoveDLLSharptop.Text = "Move DLL - TIP";
             this.btnMoveDLLSharptop.UseVisualStyleBackColor = false;
-            this.btnMoveDLLSharptop.Click += new System.EventHandler(this.btnMoveDLLSharptop_Click);
             // 
             // btnMoveDLL853
             // 
@@ -214,7 +207,6 @@
             this.btnMoveDLL853.TabIndex = 8;
             this.btnMoveDLL853.Text = "Move 853 DLL";
             this.btnMoveDLL853.UseVisualStyleBackColor = false;
-            this.btnMoveDLL853.Click += new System.EventHandler(this.btnMoveDLL853_Click);
             // 
             // btnOpenLog
             // 
@@ -244,7 +236,6 @@
             this.btnCloseVS.TabIndex = 10;
             this.btnCloseVS.Text = "Close VS";
             this.btnCloseVS.UseVisualStyleBackColor = false;
-            this.btnCloseVS.Click += new System.EventHandler(this.btnCloseVS_Click);
             // 
             // btnLaunchBJE
             // 
@@ -260,7 +251,6 @@
             this.btnLaunchBJE.TabIndex = 11;
             this.btnLaunchBJE.Text = "BJE";
             this.btnLaunchBJE.UseVisualStyleBackColor = false;
-            this.btnLaunchBJE.Click += new System.EventHandler(this.btnLaunchBJE_Click);
             // 
             // btnGetLatest
             // 
@@ -276,7 +266,6 @@
             this.btnGetLatest.TabIndex = 12;
             this.btnGetLatest.Text = "Get Latest";
             this.btnGetLatest.UseVisualStyleBackColor = false;
-            this.btnGetLatest.Click += new System.EventHandler(this.btnGetLatest_Click);
             // 
             // btnCloseALLVS
             // 
@@ -323,7 +312,6 @@
             this.btnEnable.TabIndex = 15;
             this.btnEnable.Text = "Enable Speech";
             this.btnEnable.UseVisualStyleBackColor = false;
-            this.btnEnable.Click += new System.EventHandler(this.btnEnable_Click);
             // 
             // btnDisable
             // 
@@ -340,7 +328,6 @@
             this.btnDisable.TabIndex = 16;
             this.btnDisable.Text = "Disable Speech";
             this.btnDisable.UseVisualStyleBackColor = false;
-            this.btnDisable.Click += new System.EventHandler(this.btnDisable_Click);
             // 
             // txtLog
             // 
@@ -550,7 +537,6 @@
             this.btnLauch854.TabIndex = 35;
             this.btnLauch854.Text = "Launch Solutions - 854";
             this.btnLauch854.UseVisualStyleBackColor = false;
-            this.btnLauch854.Click += new System.EventHandler(this.btnLauch854_Click);
             // 
             // btnIIS854
             // 
@@ -565,7 +551,6 @@
             this.btnIIS854.TabIndex = 36;
             this.btnIIS854.Text = "IIS 854";
             this.btnIIS854.UseVisualStyleBackColor = false;
-            this.btnIIS854.Click += new System.EventHandler(this.btnIIS854_Click);
             // 
             // notifyIcon1
             // 
@@ -579,16 +564,10 @@
             // cbVersion
             // 
             this.cbVersion.FormattingEnabled = true;
-            this.cbVersion.Items.AddRange(new object[] {
-            "Tip",
-            "855",
-            "854",
-            "853"});
             this.cbVersion.Location = new System.Drawing.Point(167, 12);
             this.cbVersion.Name = "cbVersion";
             this.cbVersion.Size = new System.Drawing.Size(121, 21);
             this.cbVersion.TabIndex = 37;
-            this.cbVersion.SelectedIndexChanged += new System.EventHandler(this.cbVersion_SelectedIndexChanged);
             // 
             // btncbLaunch
             // 
@@ -618,7 +597,6 @@
             this.btncbIIS.TabIndex = 39;
             this.btncbIIS.Text = "IIS";
             this.btncbIIS.UseVisualStyleBackColor = false;
-            this.btncbIIS.Click += new System.EventHandler(this.btncbIIS_Click);
             // 
             // btncbGetLatest
             // 
@@ -634,7 +612,6 @@
             this.btncbGetLatest.TabIndex = 40;
             this.btncbGetLatest.Text = "Get Latest -";
             this.btncbGetLatest.UseVisualStyleBackColor = false;
-            this.btncbGetLatest.Click += new System.EventHandler(this.btncbGetLatest_Click);
             // 
             // label18
             // 
@@ -660,7 +637,6 @@
             this.btncbMoveDLL.TabIndex = 42;
             this.btncbMoveDLL.Text = "Move DLL";
             this.btncbMoveDLL.UseVisualStyleBackColor = false;
-            this.btncbMoveDLL.Click += new System.EventHandler(this.btncbMoveDLL_Click);
             // 
             // btnConfig
             // 
@@ -691,7 +667,6 @@
             this.btnTest.TabIndex = 44;
             this.btnTest.Text = "Test";
             this.btnTest.UseVisualStyleBackColor = false;
-            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
             // btnScreenshot
             // 

@@ -9,6 +9,7 @@ namespace MyCommands
         SqlConnection con = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;User ID=wbpoc;Initial Catalog=DFCommands;Data Source=.");
         SqlCommand cmd;
         SqlDataAdapter adapt;
+        int selectedVersion;
         public Configuration()
         {
             InitializeComponent();
@@ -64,9 +65,10 @@ namespace MyCommands
         {
             if (txtVersionNumber.Text != "" && txtVersionPath.Text != "")
             {
-                cmd = new SqlCommand("update tblVersion set versionNumber=@versionNumber,versionPath=@versionPath where versionNumber=@versionNumber", con);
+                cmd = new SqlCommand("update tblVersion set versionNumber=@versionNumber,versionPath=@versionPath where versionNumber=@selectedVersion", con);
                 con.Open();
                 cmd.Parameters.AddWithValue("@versionNumber", int.Parse(txtVersionNumber.Text));
+                cmd.Parameters.AddWithValue("@selectedVersion", selectedVersion);
                 cmd.Parameters.AddWithValue("@versionPath", txtVersionPath.Text);
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Record Updated Successfully");
@@ -104,6 +106,21 @@ namespace MyCommands
             Form1 frmMain = new Form1();
             frmMain.Show();
             this.Hide();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                selectedVersion = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
+                txtVersionNumber.Text = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
+                txtVersionPath.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
+            }
         }
     }
     }
