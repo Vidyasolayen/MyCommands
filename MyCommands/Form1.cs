@@ -524,7 +524,7 @@ pause
                 }
             }
         }
-
+        //Generic way of lauching solutions
         private void genericLaunchSolution()
         {
             string versionPath = mcd.getVersionPath(cbVersion.Text);
