@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -10,10 +9,7 @@ using System.Runtime.InteropServices;
 using System.Data.SqlClient;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Threading;
-using System.Text;
-using System.Management;
+using System.Xml;
 
 namespace MyCommands
 {
@@ -88,8 +84,8 @@ namespace MyCommands
                 //Alt + z
                 if (id == 5898241)
                 {
-                    checkIfSolutionRunning();
-                    //sendEmail();
+                    //checkIfSolutionRunning();
+                    sendEmail();
                 }
                 //Alt + i
                 if (id == 4784129)
@@ -136,7 +132,8 @@ namespace MyCommands
                     //btnLaunchBJE_Click(null,null);
                 }
                 //Alt + g
-                if (id == 4653057) {
+                if (id == 4653057)
+                {
                     generateTFSComment();
                 }
 
@@ -148,10 +145,10 @@ namespace MyCommands
                 {
                     copyBranchName();
                 }
-                Console.WriteLine(id);
+                //Console.WriteLine(id);
 
             }
-            Console.WriteLine(m.Msg);
+            //Console.WriteLine(m.Msg);
 
             base.WndProc(ref m);
         }
@@ -239,16 +236,31 @@ namespace MyCommands
 
 SET DRIVEPATH='{versionPath}'
    
+{folderPath}/inetsrv/appcmd.exe set vdir 'AdminService/' -physicalPath:%DRIVEPATH%\bin\_PublishedWebsites\AdminService
+{folderPath}/inetsrv/appcmd.exe set vdir 'DataSvc/' -physicalPath:%DRIVEPATH%\bin\_PublishedWebsites\DataSvc
+{folderPath}/inetsrv/appcmd.exe set vdir 'MyDayforce/' -physicalPath:%DRIVEPATH%\bin\_PublishedWebsites\MyDayforce
+{folderPath}/inetsrv/appcmd.exe set vdir 'HCMAnywhere/' -physicalPath:%DRIVEPATH%\bin\Api
+{folderPath}/inetsrv/appcmd.exe set vdir 'CandidatePortal/' -physicalPath:%DRIVEPATH%\bin\_PublishedWebsites\CandidatePortal
+pause
+";
+            if (!string.IsNullOrEmpty(cbVersion.Text) && int.Parse(cbVersion.Text) < 858)
+            {
+                strCmdText = $@"@echo off
+SET DRIVEPATH='{versionPath}'
+   
 {folderPath}/inetsrv/appcmd.exe set vdir 'AdminService/' -physicalPath:%DRIVEPATH%\Services\Platform\AdminService
 {folderPath}/inetsrv/appcmd.exe set vdir 'DataSvc/' -physicalPath:%DRIVEPATH%\Services\Platform\WBDataSvc\DataSvc
 {folderPath}/inetsrv/appcmd.exe set vdir 'MyDayforce/' -physicalPath:%DRIVEPATH%\UI\MyWorkBits
+{folderPath}/inetsrv/appcmd.exe set vdir 'CandidatePortal/' -physicalPath:%DRIVEPATH%\UI\CandidatePortal
+{folderPath}/inetsrv/appcmd.exe set vdir 'HCMAnywhere/' -physicalPath:%DRIVEPATH%\UI\HCMAnywhere
 pause
 ";
+            }
+
             strCmdText = strCmdText.Replace("'", "\"");
 
             executeCommand(strCmdText, fileName);
         }
-
         #endregion
 
         private void copyBranchName()
@@ -271,7 +283,7 @@ pause
                     if (count == 0)
                     {
                         tfsnum = strArr[count].ToLower().Trim();
-                        tfsnum = tfsnum.ToLower().Replace("task", "").Replace("issue", "").Replace("bug", "").Replace("pbi", "").Replace("dev","").Replace(" ", "");
+                        tfsnum = tfsnum.ToLower().Replace("task", "").Replace("issue", "").Replace("bug", "").Replace("pbi", "").Replace("dev", "").Replace(" ", "");
                     }
                     else
                     {
@@ -291,7 +303,11 @@ pause
 
         private void copyListOfReviewers()
         {
-            Clipboard.SetText(@"Bhaukaurally, Akeel; Butler, Brandon; Mahadea, Nishta; Ramiad, Mohnish; Thoondee, Kripalini; Mazaheri, Ali; Tong, Tai; Acevedo, Luis; Tope, Jeff; Perumal, Vivekanandhan; Das, Tanmoyee");
+            string strCmdText;
+            strCmdText =$@"git branch 'recruiting/myAssistant{DateTime.Now.ToString().Replace(":", "").Replace("/", "").Replace(" ", "")}'
+pause";
+            System.Diagnostics.Process.Start("C:\\windows\\system32\\windowspowershell\\v1.0\\powershell.exe ", strCmdText);
+            //Clipboard.SetText(@"Bhaukaurally, Akeel; Butler, Brandon; Mahadea, Nishta; Ramiad, Mohnish; Thoondee, Kripalini; Mazaheri, Ali; Tong, Tai; Acevedo, Luis; Tope, Jeff; Perumal, Vivekanandhan; Das, Tanmoyee; ceridianhr\JLang;Callachand, Umar; Yoganathan, Sriparan;");
         }
 
         private void populateCbVersion()
@@ -345,7 +361,7 @@ pause
             notifyIcon1.BalloonTipText = cbVersion.Text;
             notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
             notifyIcon1.BalloonTipTitle = "Version Chosen";
-            notifyIcon1.ShowBalloonTip(500);
+            notifyIcon1.ShowBalloonTip(100);
         }
 
         private void generateTFSComment()
@@ -356,7 +372,8 @@ pause
             {
                 string release = cbVersion.Text;
 
-                if (cbVersion.Text == "") {
+                if (cbVersion.Text == "")
+                {
                     release = "857";
                 }
 
@@ -402,12 +419,12 @@ pause
             Bitmap myScreen = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, PixelFormat.Format32bppPArgb);
             graphics = Graphics.FromImage(myScreen);
             graphics.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
-            string imageName = "MyScreen "+ DateTime.Now.ToString();
+            string imageName = "MyScreen " + DateTime.Now.ToString();
             imageName = imageName.Replace("/", "_");
             imageName = imageName.Replace(":", "_");
             imageName += ".jpg";
             myScreen.Save(imageName, System.Drawing.Imaging.ImageFormat.Jpeg);
-            string logpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"\"+imageName;
+            string logpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"\" + imageName;
             #endregion
 
             try
@@ -430,7 +447,43 @@ pause
             {
                 MessageBox.Show(ex.ToString());
             }
-        }
+
+            //// Create an XML reader for this file.
+            //using (XmlReader reader = XmlReader.Create("C:\\books.xml"))
+            //{
+            //    while (reader.Read())
+            //    {
+            //        // Only detect start elements.
+            //        if (reader.IsStartElement())
+            //        {
+            //            Console.WriteLine(reader.Name + ": " + reader.ReadInnerXml());
+            //            //// Get element name and switch on it.
+            //            //switch (reader.Name)
+            //            //{
+            //            //    case "wawa":
+            //            //        // Detect this element.
+            //            //        Console.WriteLine("Start <perls> element.");
+            //            //        break;
+            //            //    case "article":
+            //            //        // Detect this article element.
+            //            //        Console.WriteLine("Start <article> element.");
+            //            //        // Search for the attribute name on this current node.
+            //            //        string attribute = reader["name"];
+            //            //        if (attribute != null)
+            //            //        {
+            //            //            Console.WriteLine("  Has attribute name: " + attribute);
+            //            //        }
+            //            //        // Next read will contain text.
+            //            //        if (reader.Read())
+            //            //        {
+            //            //            Console.WriteLine("  Text node: " + reader.Value.Trim());
+            //            //        }
+            //            //        break;
+            //            //}
+            //        }
+            //    }
+            //}
+    }
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             //Show();
