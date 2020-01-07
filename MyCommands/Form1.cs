@@ -30,11 +30,6 @@ namespace MyCommands
         Dictionary<string, Process> processesOpen = new Dictionary<string, Process>();
 
         #region configurations
-        string versionTip = @"C:\Dayforce\SharpTop";
-        string version855 = @"D:\Dayforce855\SharpTop";
-        string version854 = @"D:\Dayforce854\SharpTop";
-        string version853 = @"D:\Dayforce853\SharpTop";
-
         string[] openSolutions = new string[] { "Main.sln", "Dsvc.sln" };
         #endregion
         public Form1()
@@ -136,10 +131,10 @@ namespace MyCommands
                 {
                     generateTFSComment();
                 }
-
+                //Alt + r
                 if (id == 5373953)
                 {
-                    copyListOfReviewers();
+                    //do something
                 }
                 if (id == 5308417)
                 {
@@ -151,17 +146,6 @@ namespace MyCommands
             //Console.WriteLine(m.Msg);
 
             base.WndProc(ref m);
-        }
-
-        private void checkIfSolutionRunning()
-        {
-            //Process p = System.Runtime.getRuntime().exec("wmic process where caption=\"devenv.exe\" get commandline");
-            //StreamReader input = new StreamReader(new InputStreamReader(p.getInputStream()));
-            //while ((line = input.readLine()) != null)
-            //{
-            //    if (line.trim().contains(solutionPath))
-            //   //the VS solution is already open
-            //}
         }
 
         private void moveDLLs()
@@ -301,15 +285,6 @@ pause
             }
         }
 
-        private void copyListOfReviewers()
-        {
-            string strCmdText;
-            strCmdText =$@"git branch 'recruiting/myAssistant{DateTime.Now.ToString().Replace(":", "").Replace("/", "").Replace(" ", "")}'
-pause";
-            System.Diagnostics.Process.Start("C:\\windows\\system32\\windowspowershell\\v1.0\\powershell.exe ", strCmdText);
-            //Clipboard.SetText(@"Bhaukaurally, Akeel; Butler, Brandon; Mahadea, Nishta; Ramiad, Mohnish; Thoondee, Kripalini; Mazaheri, Ali; Tong, Tai; Acevedo, Luis; Tope, Jeff; Perumal, Vivekanandhan; Das, Tanmoyee; ceridianhr\JLang;Callachand, Umar; Yoganathan, Sriparan;");
-        }
-
         private void populateCbVersion()
         {
             using (SqlConnection conn = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;User ID=wbpoc;Initial Catalog=DFCommands;Data Source=."))
@@ -374,7 +349,7 @@ pause";
 
                 if (cbVersion.Text == "")
                 {
-                    release = "857";
+                    release = "858";
                 }
 
                 string[] strArr = null;
@@ -447,42 +422,6 @@ pause";
             {
                 MessageBox.Show(ex.ToString());
             }
-
-            //// Create an XML reader for this file.
-            //using (XmlReader reader = XmlReader.Create("C:\\books.xml"))
-            //{
-            //    while (reader.Read())
-            //    {
-            //        // Only detect start elements.
-            //        if (reader.IsStartElement())
-            //        {
-            //            Console.WriteLine(reader.Name + ": " + reader.ReadInnerXml());
-            //            //// Get element name and switch on it.
-            //            //switch (reader.Name)
-            //            //{
-            //            //    case "wawa":
-            //            //        // Detect this element.
-            //            //        Console.WriteLine("Start <perls> element.");
-            //            //        break;
-            //            //    case "article":
-            //            //        // Detect this article element.
-            //            //        Console.WriteLine("Start <article> element.");
-            //            //        // Search for the attribute name on this current node.
-            //            //        string attribute = reader["name"];
-            //            //        if (attribute != null)
-            //            //        {
-            //            //            Console.WriteLine("  Has attribute name: " + attribute);
-            //            //        }
-            //            //        // Next read will contain text.
-            //            //        if (reader.Read())
-            //            //        {
-            //            //            Console.WriteLine("  Text node: " + reader.Value.Trim());
-            //            //        }
-            //            //        break;
-            //            //}
-            //        }
-            //    }
-            //}
     }
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -634,9 +573,5 @@ pause";
             sendEmail();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
