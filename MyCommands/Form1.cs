@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Drawing.Imaging;
 using System.Xml;
+using System.Management.Automation;
 
 namespace MyCommands
 {
@@ -28,6 +29,9 @@ namespace MyCommands
         List<int> versionNumbers = null;
         List<string> alreadyOpenedVersions = new List<string>();
         Dictionary<string, Process> processesOpen = new Dictionary<string, Process>();
+        string xmlFilePath = "D:\\commands.xml";
+        //string xmlFilePath = @"https://mycworks.000webhostapp.com/commands.xml";
+        string utilsFolderPath = @"C:\Dayforce\Utils";
 
         #region configurations
         string[] openSolutions = new string[] { "Main.sln", "Dsvc.sln" };
@@ -225,7 +229,7 @@ SET DRIVEPATH='{versionPath}'
 {folderPath}/inetsrv/appcmd.exe set vdir 'MyDayforce/' -physicalPath:%DRIVEPATH%\bin\_PublishedWebsites\MyDayforce
 {folderPath}/inetsrv/appcmd.exe set vdir 'HCMAnywhere/' -physicalPath:%DRIVEPATH%\bin\Api
 {folderPath}/inetsrv/appcmd.exe set vdir 'CandidatePortal/' -physicalPath:%DRIVEPATH%\bin\_PublishedWebsites\CandidatePortal
-pause
+::pause
 ";
             if (!string.IsNullOrEmpty(cbVersion.Text) && int.Parse(cbVersion.Text) < 858)
             {
@@ -237,7 +241,7 @@ SET DRIVEPATH='{versionPath}'
 {folderPath}/inetsrv/appcmd.exe set vdir 'MyDayforce/' -physicalPath:%DRIVEPATH%\UI\MyWorkBits
 {folderPath}/inetsrv/appcmd.exe set vdir 'CandidatePortal/' -physicalPath:%DRIVEPATH%\UI\CandidatePortal
 {folderPath}/inetsrv/appcmd.exe set vdir 'HCMAnywhere/' -physicalPath:%DRIVEPATH%\UI\HCMAnywhere
-pause
+::pause
 ";
             }
 
@@ -572,6 +576,50 @@ pause
         {
             sendEmail();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //on form load
+            //add listener to xml file
+            //Timer MyTimer = new Timer();
+            //MyTimer.Interval = (1 * 20 * 1000); // 45 mins
+            //MyTimer.Tick += new EventHandler(TimerCallback);
+            //MyTimer.Start();
+        }
+
+        private void TimerCallback(object sender, EventArgs e)
+        {
+            //read xml file
+
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.Load(xmlFilePath);
+
+            XmlNodeList commands = xmlDocument.SelectNodes("/CommandList/Command");
+
+            if (commands.Count > 0)
+            {
+                foreach (XmlNode command in commands)
+                {
+                    XmlNode commandText = command.SelectSingleNode("CommandText");
+                    XmlNode commandDate = command.SelectSingleNode("CommandDate");
+                    XmlNode commandTime = command.SelectSingleNode("CommandTime");
+
+                    if (!string.IsNullOrEmpty(commandText?.InnerText))
+                    {
+                        //PowerShell ps = PowerShell.Create();
+                        //ps.AddScript($"{utilsFolderPath}/{commandText.InnerText}");
+                        //    //.AddParameter("version", "git57");
+                        //ps.Invoke();
+
+                        //Process procMain = new System.Diagnostics.Process();
+                        //procMain.EnableRaisingEvents = false;
+                        //procMain.StartInfo.FileName = $"{utilsFolderPath}/{commandText.InnerText}";
+                        Process.Start(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe", $"{commandText.InnerText}");
+                    }
+                }
+            }
+        }
+
 
     }
 }
