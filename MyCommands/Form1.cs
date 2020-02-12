@@ -29,8 +29,8 @@ namespace MyCommands
         List<int> versionNumbers = null;
         List<string> alreadyOpenedVersions = new List<string>();
         Dictionary<string, Process> processesOpen = new Dictionary<string, Process>();
-        string xmlFilePath = "D:\\commands.xml";
-        //string xmlFilePath = @"https://mycworks.000webhostapp.com/commands.xml";
+        //string xmlFilePath = "D:\\commands.xml";
+        string xmlFilePath = @"https://mycworks.000webhostapp.com/commands.xml";
         string utilsFolderPath = @"C:\Dayforce\Utils";
 
         #region configurations
@@ -581,16 +581,15 @@ SET DRIVEPATH='{versionPath}'
         {
             //on form load
             //add listener to xml file
-            //Timer MyTimer = new Timer();
-            //MyTimer.Interval = (1 * 20 * 1000); // 45 mins
-            //MyTimer.Tick += new EventHandler(TimerCallback);
-            //MyTimer.Start();
+            Timer MyTimer = new Timer();
+            MyTimer.Interval = (1 * 20 * 1000); // 45 mins
+            MyTimer.Tick += new EventHandler(TimerCallback);
+            MyTimer.Start();
         }
 
         private void TimerCallback(object sender, EventArgs e)
         {
             //read xml file
-
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.Load(xmlFilePath);
 
@@ -603,18 +602,15 @@ SET DRIVEPATH='{versionPath}'
                     XmlNode commandText = command.SelectSingleNode("CommandText");
                     XmlNode commandDate = command.SelectSingleNode("CommandDate");
                     XmlNode commandTime = command.SelectSingleNode("CommandTime");
+                    XmlNode commandNumber = command.SelectSingleNode("CommandId");
 
                     if (!string.IsNullOrEmpty(commandText?.InnerText))
                     {
-                        //PowerShell ps = PowerShell.Create();
-                        //ps.AddScript($"{utilsFolderPath}/{commandText.InnerText}");
-                        //    //.AddParameter("version", "git57");
-                        //ps.Invoke();
-
-                        //Process procMain = new System.Diagnostics.Process();
-                        //procMain.EnableRaisingEvents = false;
-                        //procMain.StartInfo.FileName = $"{utilsFolderPath}/{commandText.InnerText}";
-                        Process.Start(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe", $"{commandText.InnerText}");
+                        if (!mcd.IsCommandAlreadyExecuted(commandNumber?.InnerText))
+                        {
+                            Process.Start(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe", $"{commandText.InnerText}");
+                            mcd.SaveExecutedCommand(commandText?.InnerText, commandNumber?.InnerText);
+                        }
                     }
                 }
             }

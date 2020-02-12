@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -49,6 +50,39 @@ namespace MyCommands
 
             con.Close();
             return ints;
+        }
+
+        public void SaveExecutedCommand(string commandText, string commandNumber)
+        {
+            SqlConnection con = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;User ID=wbpoc;Initial Catalog=DFCommands;Data Source=.");
+            SqlCommand cmd;
+
+            cmd = new SqlCommand("insert into tblCommands(commandNumber,CommandText, LastModifiedTimestamp) values(@commandNumber,@CommandText, @LastModifiedTimestamp)", con);
+            con.Open();
+            cmd.Parameters.AddWithValue("@commandNumber", commandNumber);
+            cmd.Parameters.AddWithValue("@CommandText", commandText);
+            cmd.Parameters.AddWithValue("@LastModifiedTimestamp", DateTime.Now);
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        public bool IsCommandAlreadyExecuted(string commandNumber)
+        {
+            SqlConnection con = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;User ID=wbpoc;Initial Catalog=DFCommands;Data Source=.");
+            SqlCommand command = new SqlCommand($"select 1 from tblCommands where CommandNumber = '{commandNumber}'", con);
+            con.Open();
+            bool result = false;
+
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    result = true;
+                }
+            }
+
+            con.Close();
+            return result;
         }
 
     }
