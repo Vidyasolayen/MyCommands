@@ -122,6 +122,31 @@ namespace MyCommands
                 txtVersionPath.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
             }
         }
+
+        private void txtVersionPath_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtVersionNumber_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label18_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Configuration_Load(object sender, EventArgs e)
+        {
+
+        }
     }
     }
 

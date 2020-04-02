@@ -49,6 +49,7 @@
             this.dataGridView1.Size = new System.Drawing.Size(536, 197);
             this.dataGridView1.TabIndex = 41;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_RowHeaderMouseClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // label18
@@ -61,6 +62,7 @@
             this.label18.Size = new System.Drawing.Size(118, 20);
             this.label18.TabIndex = 43;
             this.label18.Text = "Version NO: ";
+            this.label18.Click += new System.EventHandler(this.label18_Click);
             // 
             // label1
             // 
@@ -72,6 +74,7 @@
             this.label1.Size = new System.Drawing.Size(123, 20);
             this.label1.TabIndex = 44;
             this.label1.Text = "Version Path:";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // txtVersionNumber
             // 
@@ -79,6 +82,7 @@
             this.txtVersionNumber.Name = "txtVersionNumber";
             this.txtVersionNumber.Size = new System.Drawing.Size(100, 20);
             this.txtVersionNumber.TabIndex = 45;
+            this.txtVersionNumber.TextChanged += new System.EventHandler(this.txtVersionNumber_TextChanged);
             // 
             // txtVersionPath
             // 
@@ -86,6 +90,7 @@
             this.txtVersionPath.Name = "txtVersionPath";
             this.txtVersionPath.Size = new System.Drawing.Size(100, 20);
             this.txtVersionPath.TabIndex = 46;
+            this.txtVersionPath.TextChanged += new System.EventHandler(this.txtVersionPath_TextChanged);
             // 
             // btnAdd
             // 
@@ -166,6 +171,7 @@
             this.Name = "Configuration";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Configuration";
+            this.Load += new System.EventHandler(this.Configuration_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

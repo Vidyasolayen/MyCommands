@@ -43,7 +43,6 @@
             this.btnCloseVS = new System.Windows.Forms.Button();
             this.btnLaunchBJE = new System.Windows.Forms.Button();
             this.btnGetLatest = new System.Windows.Forms.Button();
-            this.btnCloseALLVS = new System.Windows.Forms.Button();
             this.btnKill_IISExp = new System.Windows.Forms.Button();
             this.btnEnable = new System.Windows.Forms.Button();
             this.btnDisable = new System.Windows.Forms.Button();
@@ -77,6 +76,7 @@
             this.btnConfig = new System.Windows.Forms.Button();
             this.btnTest = new System.Windows.Forms.Button();
             this.btnScreenshot = new System.Windows.Forms.Button();
+            this.btnShortcuts = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnLauchSolutions
@@ -266,21 +266,6 @@
             this.btnGetLatest.TabIndex = 12;
             this.btnGetLatest.Text = "Get Latest";
             this.btnGetLatest.UseVisualStyleBackColor = false;
-            // 
-            // btnCloseALLVS
-            // 
-            this.btnCloseALLVS.BackColor = System.Drawing.Color.Transparent;
-            this.btnCloseALLVS.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCloseALLVS.FlatAppearance.BorderSize = 0;
-            this.btnCloseALLVS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCloseALLVS.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseALLVS.Image")));
-            this.btnCloseALLVS.Location = new System.Drawing.Point(602, 39);
-            this.btnCloseALLVS.Name = "btnCloseALLVS";
-            this.btnCloseALLVS.Size = new System.Drawing.Size(180, 66);
-            this.btnCloseALLVS.TabIndex = 13;
-            this.btnCloseALLVS.Text = "Close ALL VS";
-            this.btnCloseALLVS.UseVisualStyleBackColor = false;
-            this.btnCloseALLVS.Click += new System.EventHandler(this.btnCloseALLVS_Click);
             // 
             // btnKill_IISExp
             // 
@@ -683,6 +668,21 @@
             this.btnScreenshot.UseVisualStyleBackColor = false;
             this.btnScreenshot.Click += new System.EventHandler(this.btnScreenshot_Click);
             // 
+            // btnShortcuts
+            // 
+            this.btnShortcuts.BackColor = System.Drawing.Color.Transparent;
+            this.btnShortcuts.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnShortcuts.FlatAppearance.BorderSize = 0;
+            this.btnShortcuts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShortcuts.Image = ((System.Drawing.Image)(resources.GetObject("btnShortcuts.Image")));
+            this.btnShortcuts.Location = new System.Drawing.Point(602, 39);
+            this.btnShortcuts.Name = "btnShortcuts";
+            this.btnShortcuts.Size = new System.Drawing.Size(180, 66);
+            this.btnShortcuts.TabIndex = 46;
+            this.btnShortcuts.Text = "Shortcuts";
+            this.btnShortcuts.UseVisualStyleBackColor = false;
+            this.btnShortcuts.Click += new System.EventHandler(this.btnShortcuts_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -690,6 +690,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(998, 264);
+            this.Controls.Add(this.btnShortcuts);
             this.Controls.Add(this.btnScreenshot);
             this.Controls.Add(this.btnTest);
             this.Controls.Add(this.btnConfig);
@@ -722,7 +723,6 @@
             this.Controls.Add(this.btnDisable);
             this.Controls.Add(this.btnEnable);
             this.Controls.Add(this.btnKill_IISExp);
-            this.Controls.Add(this.btnCloseALLVS);
             this.Controls.Add(this.btnGetLatest);
             this.Controls.Add(this.btnLaunchBJE);
             this.Controls.Add(this.btnCloseVS);
@@ -762,7 +762,6 @@
         private System.Windows.Forms.Button btnCloseVS;
         private System.Windows.Forms.Button btnLaunchBJE;
         private System.Windows.Forms.Button btnGetLatest;
-        private System.Windows.Forms.Button btnCloseALLVS;
         private System.Windows.Forms.Button btnKill_IISExp;
         private System.Windows.Forms.Button btnEnable;
         private System.Windows.Forms.Button btnDisable;
@@ -796,6 +795,7 @@
         private System.Windows.Forms.Button btnConfig;
         private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.Button btnScreenshot;
+        private System.Windows.Forms.Button btnShortcuts;
     }
 }
 

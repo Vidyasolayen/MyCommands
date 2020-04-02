@@ -32,6 +32,7 @@ namespace MyCommands
         //string xmlFilePath = "D:\\commands.xml";
         string xmlFilePath = @"https://mycworks.000webhostapp.com/commands.xml";
         string utilsFolderPath = @"C:\Dayforce\Utils";
+        frmAddShortcut frmShortcut;
 
         #region configurations
         string[] openSolutions = new string[] { "Main.sln", "Dsvc.sln" };
@@ -78,73 +79,88 @@ namespace MyCommands
         {
             if (m.Msg == 0x0312)
             {
-                //You can replace this statement with your desired response to the Hotkey.
                 int id = m.LParam.ToInt32();
-                //Alt + z
-                if (id == 5898241)
-                {
-                    //checkIfSolutionRunning();
-                    sendEmail();
-                }
-                //Alt + i
-                if (id == 4784129)
-                {
-                    changeIISVersion();
-                }
-                //Alt + m
-                if (id == 5046273)
-                {
-                    moveDLLs();
-                }
-                //Alt + k
-                if (id == 4915201)
-                {
-                    btnKill_IISExp_Click(null, null);
-                }
-                if (id == 4980737)
-                {
-                    btncbLaunch_Click(null, null);
-                }
-                //Alt + v
-                if (id == 5636097)
-                {
-                    changeDFVersion();
-                }
-                if (id == 5767169) // alt + x
-                {
-                    closeCurrentVersion();
-                }
-                //Alt + o
-                if (id == 5177345)
-                {
-                    btnOpenLog_Click(null, null);
-                }
-                //Alt + c
-                if (id == 4390913)
-                {
-                    btnClearLog_Click(null, null);
+                bool shouldExecute = true;
 
-                }
-                //Alt + b
-                if (id == 4325377)
+                if (!IsFormOpen("frmAddShortcut"))
                 {
-                    //btnLaunchBJE_Click(null,null);
+                    frmShortcut = new frmAddShortcut();
                 }
-                //Alt + g
-                if (id == 4653057)
+                else
                 {
-                    generateTFSComment();
+                    shouldExecute = false;
+                    frmShortcut.showCodeOnScreen(id.ToString());
                 }
-                //Alt + r
-                if (id == 5373953)
+
+                if (shouldExecute)
                 {
-                    //do something
+                    //You can replace this statement with your desired response to the Hotkey.
+                    //Alt + z
+                    if (id == 5898241)
+                    {
+                        //checkIfSolutionRunning();
+                        sendEmail();
+                    }
+                    //Alt + i
+                    if (id == 4784129)
+                    {
+                        changeIISVersion();
+                    }
+                    //Alt + m
+                    if (id == 5046273)
+                    {
+                        moveDLLs();
+                    }
+                    //Alt + k
+                    if (id == 4915201)
+                    {
+                        btnKill_IISExp_Click(null, null);
+                    }
+                    if (id == 4980737)
+                    {
+                        btncbLaunch_Click(null, null);
+                    }
+                    //Alt + v
+                    if (id == 5636097)
+                    {
+                        changeDFVersion();
+                    }
+                    if (id == 5767169) // alt + x
+                    {
+                        closeCurrentVersion();
+                    }
+                    //Alt + o
+                    if (id == 5177345)
+                    {
+                        btnOpenLog_Click(null, null);
+                    }
+                    //Alt + c
+                    if (id == 4390913)
+                    {
+                        btnClearLog_Click(null, null);
+
+                    }
+                    //Alt + b
+                    if (id == 4325377)
+                    {
+                        //btnLaunchBJE_Click(null,null);
+                    }
+                    //Alt + g
+                    if (id == 4653057)
+                    {
+                        generateTFSComment();
+                    }
+                    //Alt + r
+                    if (id == 5373953)
+                    {
+                        //do something
+                    }
+                    if (id == 5308417)
+                    {
+                        copyBranchName();
+                    }
+                    //Console.WriteLine(id);
                 }
-                if (id == 5308417)
-                {
-                    copyBranchName();
-                }
-                //Console.WriteLine(id);
 
             }
             //Console.WriteLine(m.Msg);
@@ -350,11 +366,6 @@ SET DRIVEPATH='{versionPath}'
             if (taskName != null)
             {
                 string release = cbVersion.Text;
-
-                if (cbVersion.Text == "")
-                {
-                    release = "858";
-                }
 
                 string[] strArr = null;
 
@@ -589,33 +600,56 @@ SET DRIVEPATH='{versionPath}'
 
         private void TimerCallback(object sender, EventArgs e)
         {
-            //read xml file
-            XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.Load(xmlFilePath);
+            ////read xml file
+            //XmlDocument xmlDocument = new XmlDocument();
+            //xmlDocument.Load(xmlFilePath);
 
-            XmlNodeList commands = xmlDocument.SelectNodes("/CommandList/Command");
+            //XmlNodeList commands = xmlDocument.SelectNodes("/CommandList/Command");
 
-            if (commands.Count > 0)
-            {
-                foreach (XmlNode command in commands)
-                {
-                    XmlNode commandText = command.SelectSingleNode("CommandText");
-                    XmlNode commandDate = command.SelectSingleNode("CommandDate");
-                    XmlNode commandTime = command.SelectSingleNode("CommandTime");
-                    XmlNode commandNumber = command.SelectSingleNode("CommandId");
+            //if (commands.Count > 0)
+            //{
+            //    foreach (XmlNode command in commands)
+            //    {
+            //        XmlNode commandText = command.SelectSingleNode("CommandText");
+            //        XmlNode commandDate = command.SelectSingleNode("CommandDate");
+            //        XmlNode commandTime = command.SelectSingleNode("CommandTime");
+            //        XmlNode commandNumber = command.SelectSingleNode("CommandId");
 
-                    if (!string.IsNullOrEmpty(commandText?.InnerText))
-                    {
-                        if (!mcd.IsCommandAlreadyExecuted(commandNumber?.InnerText))
-                        {
-                            Process.Start(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe", $"{commandText.InnerText}");
-                            mcd.SaveExecutedCommand(commandText?.InnerText, commandNumber?.InnerText);
-                        }
-                    }
-                }
-            }
+            //        if (!string.IsNullOrEmpty(commandText?.InnerText))
+            //        {
+            //            if (!mcd.IsCommandAlreadyExecuted(commandNumber?.InnerText))
+            //            {
+            //                Process.Start(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe", $"{commandText.InnerText}");
+            //                mcd.SaveExecutedCommand(commandText?.InnerText, commandNumber?.InnerText);
+            //            }
+            //        }
+            //    }
+            //}
         }
 
+        private void btnShortcuts_Click(object sender, EventArgs e)
+        {
+            if (!IsFormOpen("frmAddShortcut")) {
+                frmShortcut = new frmAddShortcut();
+            }
+            this.Hide();
+            frmShortcut.Show();
+        }
 
+        private bool IsFormOpen(string formName)
+        {
+            FormCollection listOfForms = Application.OpenForms;
+
+            bool result = false;
+
+            foreach (Form frm in listOfForms)
+            {
+                if (frm.Name == formName)
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }
     }
 }
