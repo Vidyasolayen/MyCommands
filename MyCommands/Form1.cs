@@ -264,6 +264,7 @@ SET DRIVEPATH='{versionPath}'
             strCmdText = strCmdText.Replace("'", "\"");
 
             executeCommand(strCmdText, fileName);
+            //test comment
         }
         #endregion
 
